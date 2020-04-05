@@ -22,46 +22,62 @@ Created on Sat Apr  4 19:54:05 2020
 
 linha=[]
 matriz = []
-for i in range (2):
-    x = int(input("Di9gite o número da máquina:"))
+
+matrizresultado = []
+
+i = 0
+
+while i < 3:
+    x = int(input("Digite o número da máquina:"))
+    
+    continua = 1
     
     for n in range(i):
-        if x == 999: #testar a variável
+        if matriz[n][0] == x: #testar a variável
             print("Máquina já informada!")
+            continua = 0
             
         elif x < 0:
             print("Valor negativo! A leitura dos dados foi encerrada.")
-   # else:
-    linha.append(x)
-    for s in range (3): #Mudar para 15
-        print("Digite Ruído",s)
-        linha.append(int(input()))
-    matriz.append(linha)
-    linha = [] 
-
-print('test',matriz)
-
-for i in range (R): #Para percorrer linhas
-    a =[]
-    #print(R,i)
+            continua = 0
+            i = 99
+            
+    if continua == 1:
+        linha.append(x)
+        for s in range (3): #Mudar para 15
+            print("Digite Ruído",s)
+            linha.append(int(input()))
+        matriz.append(linha)
+        linha = [] 
+        i += 1
+        
     
-    for j in range (C): #Para percorrer colunas
-        print("coluuna",j)
-        a.append(int(input()))
-    matrix.append(a)
+for i in range(len(matriz)):
+    qtde = 0
+    total = 0
     
-    print(matrix)
+    for j in range(len(matriz[i])):        
+        # Na coluna zero tem o codigo maquina
+        if j > 0:
+            qtde += 1
+            total += matriz[i][j]
+            
+    media = total / qtde
+            
+    if media >= 85:
+        linha = [] 
+        # Codigo da maquina
+        linha.append(matriz[i][0])
+        # Media dos ruidos
+        linha.append(media)
+        
+        if len(matrizresultado) > 0:
+            for k in range(len(matrizresultado)):
+                if matrizresultado[k][1] < media:
+                    matrizresultado.insert(k, linha)        
+        else:
+            matrizresultado.append(linha)
     
     
-  
-linhab = []
-for i in range (2):
-    matrizb = matriz[i][0]
-    print('test2',matrizb)
-    linhab.append(matrizb)
-    for j in range (3): #Mudar para 15
-        matrizb = matriz[0][j]
-        linhab.append(matrizb)
-    matrizb.append(linhab)
-    linhab = []
-
+for i in range(len(matrizresultado)):
+    print('Máquina ', matrizresultado[i][0], ' com nível de ruído ', matrizresultado[i][1], 'dB.')
