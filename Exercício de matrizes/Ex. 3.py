@@ -20,37 +20,35 @@ Created on Sat Apr  4 19:54:05 2020
 #Mostrar um relatório das máquinas que ultrapassaram os 85db, em ordem decrescente de ruído.
 #No final, o script deverá apresentar um relatório com o seguinte formato:
 
-linha=[]
+linha = []
 matriz = []
 
 matrizresultado = []
 
-i = 0
+i = 1
 
-while i < 3:
+while i == 1:
     x = int(input("Digite o número da máquina:"))
-    
+
     continua = 1
-    
-    for n in range(i):
+
+    if x < 0:
+        print("Valor negativo! A leitura dos dados foi encerrada.")
+        continua = 0
+        i = 0
+       
+    for n in range(len(matriz)):
         if matriz[n][0] == x: #testar a variável
             print("Máquina já informada!")
             continua = 0
-            
-        elif x < 0:
-            print("Valor negativo! A leitura dos dados foi encerrada.")
-            continua = 0
-            i = 99
-            
+
     if continua == 1:
         linha.append(x)
         for s in range (3): #Mudar para 15
             print("Digite Ruído",s)
             linha.append(int(input()))
         matriz.append(linha)
-        linha = [] 
-        i += 1
-        
+        linha = []         
     
 for i in range(len(matriz)):
     qtde = 0
